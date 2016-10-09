@@ -1,0 +1,28 @@
+<div class="top" style="margin-bottom: 10px;">
+  </br></br>
+</div>
+<div class='navbar navbar-default'>
+  <div class="navbar-wrapper">
+    <ul class="nav navbar-nav">
+      <li><a href="/courses/index"><span>课程</span></a></li>
+      <li><a href="/students/index"><span>学生</span></a></li>
+      <li><a href="/choose_courses/index"><span>课程选课状况</span></a></li>
+    </ul>
+  </div>
+</div>
+
+<script type="text/javascript">
+  window.onload = function(){
+    var urlstatus=false;
+    var as = document.getElementsByTagName("a");
+    var currenthref = location.href;
+    for(var i=0;i<as.length;i++){
+      if(currenthref.indexOf(as[i].href) != -1){
+        as[i].className="menuactive"; urlstatus = true;
+      }else{
+        as[i].className="";
+      }
+    }
+    if (!urlstatus) {as.eq(0).className="menuactive"; }
+  }
+</script>

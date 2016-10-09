@@ -1,0 +1,42 @@
+ja:
+  activerecord:
+    errors:
+      message:
+        blank: "请输入。"
+        invalid: "值不正确"
+        too_long: "在%{count}文字以内。" #---
+        too_short: "在%{count}文字以外。" #---
+        uniqueness: "不能重复。"
+        mess_input: "输入内容有误，请重新输入。" #---
+        name_length_wrong: "请输入1〜30位文字。"
+        name_choose_wrong: "请选择。"
+    attributes:
+      course:
+        name: "课程名称"
+        code: "课程编号"
+  btn:
+    select_course: "选课"
+    new: "登录" #---
+    edit: "编辑" #---
+    delete: "删除"
+    detail: "详细"
+    back: "返回"
+    operation: "操作"
+    search: "检索" #---
+    search_clear: "清除检索"
+    new_register: "新建"
+    delete_draft: "确定删除吗？"
+    save: "保存" #---
+    close: "关闭" #---
+  title:
+    search_con: "检索条件" #---
+    search_result: "检索结果" #---
+    none: "当前没有数据" #---
+  save_success: "保存成功。"
+
+  line_num: "第%{count}行" 
+  choose_course: "请选择课程。" 
+  choose_success: "课程已选择。" 
+  delete_success: "删除成功。" #--
+  will_paginate:
+    page_gap: "&hellip;"

@@ -1,0 +1,67 @@
+<div class="page-header">
+  <h3>课程一览
+    <p class="pull-right">
+        <input type="button" value="新建" class="btn btn-default" onclick="javascript:location.href='new'"/>
+    </p>
+  </h3>
+</div>
+<%= form_for :course, :url => {:action => 'index'}, :html => {:id => 'index'} do |f| %>
+  <%= hidden_field_tag(:id) %>
+  <h4 class="page-header" ><%= t('title.search_con') %></h4>
+  <div class="panel panel-default">
+    <div class="searchBox">
+        <div class="table_box">
+        <table>
+          <tr>
+            <th>课程编号</th>
+            <td><%= f.text_field(:code, :class => "form-control w180", :value => (params[:course][:code] if params[:course]))%></td>
+            <th>课程名称</th>
+            <td><%= f.text_field(:name, :class => "form-control w180", :value => (params[:course][:name] if params[:course]))%></td>
+          </tr>
+        </table>
+        <div class="center-block pad-all" style="width:100px;">
+          <input class="btn btn-default" type="submit" value=<%= t('btn.search') %> />
+        </div>
+      </div>
+    </div>    
+  </div>
+<% end %>
+  <h4 class="page-header" ><%= t('title.search_result') %></h4>
+  <table class="table table-bordered" width="100%">
+    <tr class="active">
+      <th>ID</th>
+      <th>课程编号</th>
+      <th>课程名称</th>
+      <th>课程描述</th>
+      <th>创建日期</th>
+      <th>操作</th>
+    </tr>
+    <% if @courses.blank? %>
+      <tr><td colspan="6"><%= t('title.none') %></td></tr>
+    <% else %>
+      <% @courses.each do |course| %>
+        <tr>
+          <td><%= course.id %></td>
+          <td><%= course.code %></td>
+          <td><%= course.name %></td>
+          <td><%= course.description %></td>
+          <td class="ac">
+            <%= course.created_at.present? ? course.created_at.strftime('%Y/%m/%d') : "--"  %>
+          </td>
+          <td>
+            <%= link_to(t('btn.detail'), :action => 'show', :id => course.id) %>｜
+             <a href="#choices" onclick="javascript:if(confirm('<%=t("btn.delete_draft")%>'))location.href='<%=url_for(:action => "destroy", :id => course.id)%>';"><%= t("btn.delete")%></a>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+  <div class="center-block pad-all" style="width:20%;">
+    <div class="pagination" style="float:none">
+      <% if @courses.present? %>
+        <p class="pull-right">
+          <%= form_submit_will_paginate(@courses, :submit => 'index') %>
+        </p>
+      <% end %>
+    </div>
+  </div>

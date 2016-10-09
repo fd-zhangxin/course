@@ -1,0 +1,82 @@
+<div class="page-header">
+  <h3>课程选课情况</h3>
+</div> 
+<%= form_for :choose_course, :url => {:action => 'index'}, :html => {:id => 'index'} do |f| %>
+  <h4 class="page-header" ><%= t('title.search_con') %></h4>
+  <div class="panel panel-default">
+  <div class="searchBox">
+    <div class="table_box">
+      <table width="99%">
+        <tr>
+          <th>课程编号</th>
+          <td>
+            <%= f.text_field(:coucode, :class => "form-control w180", :value => (params[:choose_course][:coucode] if params[:choose_course]))%>
+          </td>
+          <th>课程名称</th>
+          <td>
+            <%= f.text_field(:couname, :class => "form-control w180", :value => (params[:choose_course][:couname] if params[:choose_course]))%>
+          </td>
+          <th>学生编号</th>
+          <td>
+            <%= f.text_field(:stucode, :class => "form-control w180", :value => (params[:choose_course][:stucode] if params[:choose_course]))%>
+          </td>
+           <th>学生姓名</th>
+          <td>
+            <%= f.text_field(:stuname, :class => "form-control w180", :value => (params[:choose_course][:stuname] if params[:choose_course]))%>
+          </td>
+        </tr>
+      </table>
+      <div class="center-block pad-all" style="width:100px;">
+        <input class="btn btn-default" type="submit" value=<%= t("btn.search")%> />
+      </div>
+    </div>
+  </div>
+  </div>
+<% end %>
+  <h4 class="page-header" ><%= t("title.search_result")%></h4>
+  <table class="table table-bordered" width="100%">
+    <tr class="active">
+      <th width="10%">ID</th>
+      <th width="10%">选课编号</th>
+      <th width="10%">课程编号</th>
+      <th width="25%">课程名称</th>
+      <th width="10%">学生编号</th>
+      <th width="25%">学生姓名</th>
+      <th width="10%">创建日期</th>
+    </tr>
+    <% if @choose_courses.blank? %>
+      <tr><td colspan="7" class="ac"><%= t('title.none') %></td></tr>
+    <% else %>
+      <% @choose_courses.each do |choose_course| %>
+        <tr>
+          <td class="ac"><%= choose_course.id %></td>
+          <td class="ac"><%= choose_course.code %></td>
+          <td class="ac"><%= Course.find_by_id(choose_course.course_id).code %></td>
+          <td class="ac"><%= Course.find_by_id(choose_course.course_id).name %></td>
+          <% @courses_students = ChooseCourse.get_students(choose_course.course_id) %>
+          <td class="ac">
+              <% if @courses_students.present? %>
+                <% @courses_students.each do |courses_student| %>
+                  <%= courses_student.code %><br/>
+                <% end %>
+              <% else %>
+                --
+              <% end %>
+          </td>
+          <td class="ac">
+            <% if @courses_students.present? %>
+              <% @courses_students.each do |courses_student| %>
+                <%= courses_student.name %><br/>
+              <% end %>
+            <% else %>
+              --
+            <% end %>
+          </td>
+          <td class="ac">
+            <%= choose_course.created_at.present? ? choose_course.created_at.strftime('%Y/%m/%d') : "--"  %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+

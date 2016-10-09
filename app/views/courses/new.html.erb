@@ -1,0 +1,21 @@
+<%= form_for(:course, :url => {:action => 'create'}) do |f| %>
+  <div class="page-header">
+	<h3><%= t("btn.new_register") %>
+	  <div class="pull-right">
+	   <input type="button" value=<%= t("btn.new")%> class="btn btn-default" onclick="javascript:document.forms[0].submit();"/>
+      <input type="button" value=<%= t("btn.back")%> class="btn btn-default" onclick="javascript:location.href='/courses/index';"/>
+	  </div>
+	</h3>
+  </div>
+  <% if @course.errors.any? %>
+    <div class="alert alert-danger" style="padding-left:40px;">
+      <p><%= t('activerecord.errors.message.mess_input')%></p>
+      <ul>
+        <% @course.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+<% end %>

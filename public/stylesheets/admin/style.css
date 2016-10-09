@@ -1,0 +1,76 @@
+body {
+
+  font-family: "Hiragino Kaku Gothic Pro", Helvetica, Arial, Verdana, sans-serif;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #464646;
+  font-size: 15px;
+}
+
+.box {
+  width: 100vw;
+  height: 100vh;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  flex-direction: column;
+  padding-bottom: 210px;
+}
+
+.loginBox{
+  width:450px;
+  height:270px;
+  padding:0 20px;
+  color:#000;
+  border-radius:5px;
+  background: white;
+  box-shadow:0 0 1px #222; 
+  background: -moz-linear-gradient(top, #fff, #efefef 8%);background: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6), to(#f4f4f4));font:11px/1.5em 'Microsoft YaHei' ;
+  align-items: center;
+}
+  
+.loginBox h2{
+  height:45px;
+  font-size:20px;
+  font-weight:normal;
+}
+
+.loginBox .innerbox{
+  padding: 10px 10px;
+}
+
+.pad-all{
+  padding: 10px 10px;
+}
+
+/* ========== searchBox ========== */
+.searchBox .table_box{
+    padding:1px;
+    margin-bottom:20px;
+    margin-top:20px;
+}
+
+.searchBox .table_box table{
+    /*margin:0 auto;*/
+    border-collapse:collapse;
+}
+.searchBox .table_box table th,.searchBox .table_box table td{
+    border-bottom:1px dotted #e5e5e5;
+}
+.searchBox .table_box table th{
+    padding:5px 10px 5px 22px;
+    text-align:left;
+}
+.searchBox .table_box table td{
+    padding:5px 10px;
+}
+.searchBox .table_box table td input.w180{
+    width:180px;
+}
+
+.menuactive {
+  background-color: #e8e8e8;
+}
+

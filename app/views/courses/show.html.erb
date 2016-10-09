@@ -1,0 +1,42 @@
+<div class="page-header">
+<h3>课程详细
+  <div class="pull-right">
+      <input type="button" value=<%= t("btn.edit")%> class="btn btn-default" onclick="javascript:location.href='/courses/edit/<%=@course.id%>';"/>
+      <input type="button" value=<%= t("btn.back")%> class="btn btn-default" onclick="javascript:location.href='/courses/index';"/>
+  </div>
+</h3>
+</div>
+<table class="table table-bordered" style="width:800px;">
+    <tr>
+      <th class="col-sm-2 active">
+        课程编号
+      </th>
+      <td class="col-sm-10">
+        <%= @course.code %>
+      </td>
+    </tr>
+    <tr>
+      <th class="col-sm-2 active">
+        课程名称
+      </th>
+      <td class="col-sm-10">
+        <%= @course.name %>
+      </td>
+    </tr>
+    <tr>
+      <th class="col-sm-2 active">
+        课程描述
+      </th>
+      <td class="col-sm-10">
+        <%= @course.description %>
+      </td>
+    </tr>
+    <tr>
+    <th class="col-sm-2 active">
+      作成日時
+    </th>
+    <td class="col-sm-10">
+      <%= @course.created_at? ? @course.created_at.strftime('%Y/%m/%d') : "--"  %>
+    </td>
+  </tr>
+  </table>

@@ -1,0 +1,28 @@
+<%= form_for(:course, :url => {:action => 'update'}) do |f| %>
+  <div class="page-header">
+	<h3>课程编辑
+	  <div class="pull-right">
+	    <input type="button" value=<%= t("btn.new")%> class="btn btn-default" onclick="javascript:document.forms[0].submit();"/>
+	    <input type="button" value=<%= t("btn.back")%> class="btn btn-default" onclick="javascript:location.href='/courses/show?id=<%=@course.id%>';"/>
+	  </div>
+	</h3>
+  </div>
+  <% if @course.errors.any? %>
+	<div class="alert alert-danger" style="padding-left:40px;">
+	  <p><%= t('activerecord.errors.message.mess_input')%></p>
+	  <ul>
+	    <% @course.errors.full_messages.each do |message| %>
+	      <li><%= message %></li>
+	    <% end %>
+	  </ul>
+	</div>
+  <% end %>  
+  <%= render :partial => 'form', :locals => { :f => f } %>
+<% end %>
+<script type="text/javascript">
+	<% if params[:action] == "new" %>
+		document.getElementById("password_change_flag_id").value = 1;
+	<% else %>
+		document.getElementById("password_change_flag_id").value = 0;
+	<% end %>
+</script>

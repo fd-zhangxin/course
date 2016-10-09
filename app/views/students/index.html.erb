@@ -1,0 +1,74 @@
+<div class="page-header">
+  <h3>学生一览</h3>
+</div>
+<%= form_for :student, :url => {:action => 'index'}, :html => {:id => 'index'} do |f| %>
+  <%= hidden_field_tag(:id) %>
+  <h4 class="page-header" ><%= t('title.search_con') %></h4>
+  <div class="panel panel-default">
+    <div class="searchBox">
+      <div class="table_box">
+        <table>
+          <tr>
+            <th>学生编号</th>
+            <td><%= f.text_field(:code, :class => "form-control w180", :value => (params[:student][:code] if params[:student]))%></td>
+            <th>学生姓名</th>
+            <td><%= f.text_field(:name, :class => "form-control w180", :value => (params[:student][:name] if  params[:student])) %></td>
+          </tr>
+        </table>
+        <div class="center-block pad-all" style="width:100px;">
+          <input class="btn btn-default" type="submit" value="<%= t('btn.search') %>" />
+        </div>
+      </div>
+    </div>    
+  </div>
+<% end %>
+  <h4 class="page-header" ><%= t('title.search_result') %></h4>
+  <div class="pgInfo">
+    <p class="total"></p><!-- 合計 件 -->
+  </div>
+  <table class="table table-bordered" width="100%">
+    <tr class="active">
+      <th width="10%">ID</th>
+      <th width="15%">学生编号</th>
+      <th width="15%">学生姓名</th>
+      <th width="15%">学生电话</th>
+      <th width="15%">学生地址</th>
+      <th width="20%">作成日</th>
+      <th width="10%">操作</th>
+    </tr>
+    <% if @students.blank? %>
+      <tr><td colspan="7" class="ac"><%= t('title.none') %></td></tr>
+    <% else %>
+      <% @students.each do |student| %>
+        <tr>
+          <td class="ac"><%= student.id %></td>
+          <td class="ac"><%= student.code %></td>
+          <td class="ac"><%= student.name %></td>
+          <td class="ac"><%= student.tel %></td>
+          <td class="ac"><%= student.address %></td>
+          <td class="ac">
+            <%= student.created_at.present? ? student.created_at.strftime('%Y/%m/%d') : "--"  %>
+          </td>
+          <td class="action">
+            <% if ChooseCourse.find_by_student_id(student.id).blank? %>
+            <input type="button" value="<%= t('btn.select_course') %>" onclick="javascript:openWithSBox('/courses/add_course/<%= student.id %>','720px','800px');" />
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+
+  <div class="center-block pad-all" style="width:20%;">
+    <div class="pagination" style="float:none">
+      <% if @students.present? %>
+        <p class="pull-right">
+          <%= form_submit_will_paginate(@students, :submit => 'index') %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+<script type="text/javascript">
+</script>
+
+

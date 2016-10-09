@@ -1,0 +1,80 @@
+<iframe name="form_iframe" style="display: none;" width="0" height="0"></iframe>
+<h4>课程一览
+  <p class="pull-right">
+      <input type="button" value="登录" class="btn btn-default" onclick="select_course();"/>
+      <input type="button" value="取消" class="btn btn-default" onclick="javascript:top.Shadowbox.close();"/>
+  </p>
+</h4><br/>
+<div id="messages">
+  <%= render :partial=> "/layouts/admin/messages"%>
+</div>
+<%= form_for :course, :url => {:action => 'add_course'}, :html => {:id => 'search', :multipart => true, :target => 'form_iframe'} do |f| %>
+  <%= hidden_field_tag "student_id", params[:id] %>
+  <div id="course_hidden_tag"></div>
+  <h5 class="page-header" ><%= t('title.search_con') %></h5>
+  <div class="panel panel-default">
+    <div class="searchBox">
+        <div class="table_box">
+        <table>
+          <tr>
+            <th>课程编号</th>
+            <td><%= f.text_field(:code, :class => "form-control w180", :value => (params[:course][:code] if params[:course]))%></td>
+            <th>课程名称</th>
+            <td><%= f.text_field(:name, :class => "form-control w180", :value => (params[:course][:name] if params[:course]))%></td>
+          </tr>
+        </table>
+        <div class="center-block pad-all" style="width:100px;">
+          <input class="btn btn-default" type="submit" value=<%= t('btn.search') %> />
+        </div>
+      </div>
+    </div>    
+  </div>
+<% end %>
+  <h5 class="page-header" ><%= t('title.search_result') %></h5>
+  <table class="table table-bordered" width="100%">
+    <tr class="active">
+      <th></th>
+      <th>ID</th>
+      <th>课程编号</th>
+      <th>课程名称</th>
+    </tr>
+    <% if @courses.blank? %>
+      <tr><td colspan="4"><%= t('title.none') %></td></tr>
+    <% else %>
+      <% @courses.each do |course| %>
+        <tr>
+          <td>
+          <input type="radio" onclick="select_single_change(this);" value="<%= course.id %>" name="radio_single_choices" />
+        </td>
+          <td><%= course.id %></td>
+          <td><%= course.code %></td>
+          <td><%= course.name %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+  <div class="center-block pad-all" style="width:20%;">
+    <div class="pagination" style="float:none">
+      <% if @courses.present? %>
+        <p class="pull-right">
+          <%= form_submit_will_paginate(@courses, :submit => 'index') %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  function select_single_change(obj){
+    course_id = obj.value;
+    insert_flag = obj.checked;
+    if(insert_flag){
+      insert = document.getElementById("course_hidden_tag").innerHTML='<input type="hidden" name="course_id" id="course_id" value='+course_id+' />'
+    }
+  }
+  function select_course(){
+    document.getElementById('search').target = "_self"
+    document.getElementById("search").action = "/students/select_course";
+    $("search").submit();
+    document.getElementById("search").submit();
+  }
+</script>
